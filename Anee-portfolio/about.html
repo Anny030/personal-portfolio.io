@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About · Aneefat Balogun | Cloud & Fashion Tech</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FFFACD; /* LemonChiffon */
+      color: #1e1e2a;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ---------- MOVING BACKGROUND (animated gradient) ---------- */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: linear-gradient(125deg, #FFFACD 0%, #f5ebc0 40%, #e7d9ff 80%, #d4c2fc 100%);
+      background-size: 300% 300%;
+      animation: gradientMove 18s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 0%; }
+      25% { background-position: 50% 30%; }
+      50% { background-position: 100% 70%; }
+      75% { background-position: 30% 90%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* Floating ultraviolet/lemon shapes */
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .shape {
+      position: absolute;
+      background: rgba(95, 75, 139, 0.08);
+      border-radius: 50%;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(95, 75, 139, 0.15);
+      animation: floatShape 20s infinite alternate ease-in-out;
+    }
+
+    .shape-1 { width: 300px; height: 300px; top: 10%; left: -100px; background: radial-gradient(circle at 30% 30%, rgba(255,250,205,0.5), rgba(95,75,139,0.1)); }
+    .shape-2 { width: 450px; height: 450px; bottom: -100px; right: -50px; background: radial-gradient(circle, rgba(95,75,139,0.1), rgba(255,250,205,0.2)); animation-duration: 28s; }
+    .shape-3 { width: 200px; height: 200px; top: 40%; right: 15%; background: rgba(95, 75, 139, 0.06); animation-duration: 24s; animation-delay: -5s; }
+    .shape-4 { width: 150px; height: 150px; bottom: 20%; left: 20%; background: rgba(255,250,205,0.4); border-color: var(--ultraviolet); animation-duration: 18s; }
+    .shape-5 { width: 80px; height: 80px; top: 20%; left: 50%; background: rgba(95, 75, 139, 0.1); backdrop-filter: blur(6px); animation-duration: 12s; }
+
+    @keyframes floatShape {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate(30px, -40px) rotate(5deg) scale(1.05); }
+      66% { transform: translate(-20px, 20px) rotate(-3deg) scale(0.98); }
+      100% { transform: translate(15px, -15px) rotate(2deg) scale(1.02); }
+    }
+
+    /* ---------- MAIN CONTAINER ---------- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 5;
+    }
+
+    :root {
+      --lemon: #FFFACD;
+      --ultraviolet: #5F4B8B;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 16px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--ultraviolet);
+      position: relative;
+      z-index: 10;
+      background: transparent;
+    }
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--ultraviolet);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo-pretty { font-weight: 300; font-size: 1.8rem; }
+    .logo span {
+      font-weight: 400;
+      font-size: 0.9rem;
+      background: var(--ultraviolet);
+      color: var(--lemon);
+      padding: 5px 14px;
+      border-radius: 40px;
+      margin-left: 12px;
+    }
+    .nav-links { display: flex; gap: 36px; font-weight: 500; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ultraviolet);
+      font-size: 1.1rem;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--ultraviolet);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active::after { width: 100%; }
+
+    /* About section */
+    .about-section {
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      padding: 40px 0 60px;
+    }
+
+    .about-card {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 56px 52px;
+      box-shadow: 0 25px 40px -10px rgba(95, 75, 139, 0.25);
+      border: 1.5px solid rgba(95, 75, 139, 0.3);
+      width: 100%;
+      transition: box-shadow 0.4s;
+      animation: cardGlow 6s infinite alternate;
+    }
+
+    @keyframes cardGlow {
+      0% { box-shadow: 0 20px 40px -10px rgba(95, 75, 139, 0.2); border-color: rgba(95,75,139,0.25); }
+      100% { box-shadow: 0 30px 50px -8px rgba(95, 75, 139, 0.35); border-color: var(--ultraviolet); }
+    }
+
+    /* ---------- LETTER ANIMATION (words stay together) ---------- */
+    .animated-text {
+      font-size: 1.8rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #1e1830;
+    }
+
+    /* Word container: prevents breaking */
+    .word {
+      display: inline-block;
+      white-space: nowrap;
+      margin-right: 0.25em;
+    }
+
+    .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px) rotate(2deg);
+      animation: letterRise 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+      animation-delay: calc(0.02s * var(--i));
+      filter: blur(1px);
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes letterRise {
+      0% { opacity: 0; transform: translateY(30px) rotate(3deg); filter: blur(3px); }
+      60% { opacity: 0.9; transform: translateY(-2px) rotate(-0.5deg); filter: blur(0); }
+      100% { opacity: 1; transform: translateY(0) rotate(0); filter: blur(0); }
+    }
+
+    .highlight-name {
+      color: var(--ultraviolet);
+      font-weight: 700;
+    }
+
+    .signature-line {
+      margin-top: 40px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--ultraviolet);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .signature-line i {
+      font-size: 2.2rem;
+      opacity: 0.8;
+      animation: float 3s infinite;
+    }
+
+    .btn-connect {
+      background: var(--ultraviolet);
+      color: var(--lemon);
+      border: none;
+      padding: 16px 36px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s;
+      box-shadow: 0 10px 20px rgba(95, 75, 139, 0.25);
+      margin-left: 20px;
+    }
+
+    .btn-connect:hover {
+      transform: scale(1.05) translateY(-3px);
+      background: #4a3a6e;
+      box-shadow: 0 18px 28px -6px rgba(95, 75, 139, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 28px 0 20px;
+      border-top: 2px solid var(--ultraviolet);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      color: #3a2e4e;
+      position: relative;
+      z-index: 10;
+    }
+    .social-links a {
+      color: var(--ultraviolet);
+      font-size: 1.8rem;
+      margin-left: 24px;
+      transition: 0.25s;
+    }
+    .social-links a:hover {
+      transform: translateY(-5px) scale(1.15);
+      color: #4a3a6e;
+    }
+
+    @media (max-width: 680px) {
+      .navbar { flex-direction: column; gap: 16px; }
+      .about-card { padding: 36px 24px; }
+      .animated-text { font-size: 1.4rem; }
+      .word { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Moving background layers -->
+  <div class="bg-animation"></div>
+  <div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+  </div>
+
+  <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="logo">
+        <span class="logo-pretty">A·K·B</span>
+        <span>cloud∙fashion</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="projects.html"><i class="fas fa-code-branch"></i> Projects</a>
+        <a href="about.html" class="active"><i class="fas fa-user"></i> About</a>
+        <a href="connect.html"><i class="fas fa-envelope"></i> Connect</a>
+      </div>
+    </nav>
+
+    <!-- About content -->
+    <div class="about-section">
+      <div class="about-card">
+        <div class="animated-text" id="letterAnimateContainer"></div>
+        
+        <div class="signature-line">
+          <i class="fas fa-heart" style="color: var(--ultraviolet);"></i>
+          <span>Let's build something beautiful</span>
+          <a href="https://www.linkedin.com/in/aneefat-balogun-b995b2249?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="btn-connect">
+            <i class="fab fa-linkedin"></i> Connect on LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div>© 2026 Aneefat Kufre Balogun — lemon chiffon & ultraviolet</div>
+      <div class="social-links">
+        <a href="https://github.com/Anny030" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/aneefat-balogun-b995b2249?utm_source=share_via&utm_content=profile&utm_medium=member_android" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://x.com/annykufre" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      const aboutText = `Hi there, my name is Balogun Aneefat, a certified cloud engineer who is also a Fashion Enthusiast. I specialize in using AI to create fashion-forward apps. I am extremely passionate about what I do. If you resonate with what I do and think I can be of help to you, let's connect.`;
+
+      const container = document.getElementById('letterAnimateContainer');
+      
+      function createAnimatedText(text) {
+        const words = text.split(/(\s+)/).filter(Boolean);
+        let globalIndex = 0;
+        let html = '';
+        
+        words.forEach(token => {
+          if (token.trim() === '') {
+            html += token;
+            globalIndex += token.length;
+          } else {
+            let wordHtml = '';
+            const chars = token.split('');
+            
+            chars.forEach(char => {
+              const highlight = (token === 'Balogun' || token === 'Aneefat' || token === 'Balogun,' || token === 'Aneefat,');
+              const letterClass = highlight ? 'letter highlight-name' : 'letter';
+              wordHtml += `<span class="${letterClass}" style="--i: ${globalIndex};">${char}</span>`;
+              globalIndex++;
+            });
+            
+            html += `<span class="word">${wordHtml}</span>`;
+          }
+        });
+        
+        return html;
+      }
+
+      container.innerHTML = createAnimatedText(aboutText);
+
+      // Set GitHub links
+      const GITHUB_USER = 'Anny030';
+      document.querySelectorAll('.social-links a[aria-label="GitHub"]').forEach(a => a.href = `https://github.com/${GITHUB_USER}`);
+      document.querySelectorAll('.social-links a[aria-label="LinkedIn"]').forEach(a => a.href = `https://linkedin.com/in/aneefat-kufre-balogun`);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect · Aneefat Balogun | Cloud & Fashion Tech</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FFFACD; /* LemonChiffon */
+      color: #1e1e2a;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ---------- MOVING BACKGROUND (animated gradient) ---------- */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: linear-gradient(135deg, #FFFACD 0%, #f7eecb 30%, #e5d6ff 60%, #cfbef5 100%);
+      background-size: 300% 300%;
+      animation: gradientMove 20s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 0%; }
+      25% { background-position: 60% 20%; }
+      50% { background-position: 100% 70%; }
+      75% { background-position: 20% 90%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* Floating ultraviolet/lemon shapes */
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .shape {
+      position: absolute;
+      background: rgba(95, 75, 139, 0.06);
+      border-radius: 50%;
+      backdrop-filter: blur(3px);
+      border: 1px solid rgba(95, 75, 139, 0.15);
+      animation: floatShape 22s infinite alternate ease-in-out;
+    }
+
+    .shape-1 { width: 350px; height: 350px; top: 5%; left: -120px; background: radial-gradient(circle at 30% 30%, rgba(255,250,205,0.6), rgba(95,75,139,0.08)); }
+    .shape-2 { width: 500px; height: 500px; bottom: -120px; right: -80px; background: radial-gradient(circle, rgba(95,75,139,0.1), rgba(255,250,205,0.2)); animation-duration: 30s; }
+    .shape-3 { width: 220px; height: 220px; top: 30%; right: 10%; background: rgba(95, 75, 139, 0.05); animation-duration: 25s; animation-delay: -7s; }
+    .shape-4 { width: 180px; height: 180px; bottom: 25%; left: 15%; background: rgba(255,250,205,0.5); border-color: var(--ultraviolet); animation-duration: 20s; }
+    .shape-5 { width: 100px; height: 100px; top: 60%; left: 70%; background: rgba(95, 75, 139, 0.12); backdrop-filter: blur(6px); animation-duration: 14s; }
+
+    @keyframes floatShape {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate(40px, -50px) rotate(6deg) scale(1.05); }
+      66% { transform: translate(-30px, 30px) rotate(-4deg) scale(0.97); }
+      100% { transform: translate(20px, -20px) rotate(3deg) scale(1.02); }
+    }
+
+    /* ---------- MAIN CONTAINER ---------- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 5;
+    }
+
+    :root {
+      --lemon: #FFFACD;
+      --ultraviolet: #5F4B8B;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 16px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--ultraviolet);
+      position: relative;
+      z-index: 10;
+      background: transparent;
+    }
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--ultraviolet);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo-pretty { font-weight: 300; font-size: 1.8rem; }
+    .logo span {
+      font-weight: 400;
+      font-size: 0.9rem;
+      background: var(--ultraviolet);
+      color: var(--lemon);
+      padding: 5px 14px;
+      border-radius: 40px;
+      margin-left: 12px;
+    }
+    .nav-links { display: flex; gap: 36px; font-weight: 500; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ultraviolet);
+      font-size: 1.1rem;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--ultraviolet);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active::after { width: 100%; }
+
+    /* Connect section */
+    .connect-section {
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      padding: 40px 0 60px;
+    }
+
+    .connect-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 56px;
+      padding: 56px 60px;
+      box-shadow: 0 30px 45px -12px rgba(95, 75, 139, 0.3);
+      border: 1.5px solid rgba(95, 75, 139, 0.25);
+      width: 100%;
+      transition: box-shadow 0.4s;
+      animation: cardGlow 7s infinite alternate;
+      text-align: center;
+    }
+
+    @keyframes cardGlow {
+      0% { box-shadow: 0 20px 40px -10px rgba(95, 75, 139, 0.2); border-color: rgba(95,75,139,0.25); }
+      100% { box-shadow: 0 35px 55px -12px rgba(95, 75, 139, 0.4); border-color: var(--ultraviolet); }
+    }
+
+    /* ---------- LOVELY ANIMATED TEXT ---------- */
+    .greeting {
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--ultraviolet);
+      margin-bottom: 20px;
+    }
+
+    .animated-headline {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #1e1830;
+      margin-bottom: 24px;
+    }
+
+    .word {
+      display: inline-block;
+      white-space: nowrap;
+      margin-right: 0.3em;
+    }
+
+    .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(25px) rotate(2deg);
+      animation: letterRise 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
+      animation-delay: calc(0.025s * var(--i));
+      filter: blur(2px);
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes letterRise {
+      0% { opacity: 0; transform: translateY(35px) rotate(4deg); filter: blur(4px); }
+      60% { opacity: 0.9; transform: translateY(-3px) rotate(-0.5deg); filter: blur(0); }
+      100% { opacity: 1; transform: translateY(0) rotate(0); filter: blur(0); }
+    }
+
+    .highlight {
+      color: var(--ultraviolet);
+      font-weight: 800;
+    }
+
+    .message-text {
+      font-size: 1.3rem;
+      margin: 24px 0 40px;
+      color: #2e2540;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 400;
+    }
+
+    /* LinkedIn button – prominent */
+    .linkedin-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--ultraviolet);
+      color: var(--lemon);
+      font-size: 1.6rem;
+      font-weight: 700;
+      padding: 20px 50px;
+      border-radius: 80px;
+      text-decoration: none;
+      box-shadow: 0 16px 30px -6px rgba(95, 75, 139, 0.4);
+      border: 2px solid rgba(255,250,205,0.5);
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
+      margin-top: 16px;
+    }
+
+    .linkedin-btn i {
+      font-size: 2.4rem;
+      transition: transform 0.3s;
+    }
+
+    .linkedin-btn:hover {
+      transform: translateY(-6px) scale(1.02);
+      background: #4a3a6e;
+      box-shadow: 0 24px 40px -8px rgba(95, 75, 139, 0.6);
+      gap: 24px;
+    }
+
+    .linkedin-btn:hover i {
+      transform: scale(1.1);
+    }
+
+    .connect-note {
+      margin-top: 36px;
+      font-size: 1rem;
+      color: #4f406b;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 28px 0 20px;
+      border-top: 2px solid var(--ultraviolet);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      color: #3a2e4e;
+      position: relative;
+      z-index: 10;
+    }
+    .social-links a {
+      color: var(--ultraviolet);
+      font-size: 1.8rem;
+      margin-left: 24px;
+      transition: 0.25s;
+    }
+    .social-links a:hover {
+      transform: translateY(-5px) scale(1.15);
+      color: #4a3a6e;
+    }
+
+    @media (max-width: 680px) {
+      .navbar { flex-direction: column; gap: 16px; }
+      .connect-card { padding: 40px 24px; }
+      .animated-headline { font-size: 2rem; }
+      .linkedin-btn { font-size: 1.3rem; padding: 16px 32px; }
+      .word { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Moving background layers -->
+  <div class="bg-animation"></div>
+  <div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+  </div>
+
+  <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="logo">
+        <span class="logo-pretty">A·K·B</span>
+        <span>cloud∙fashion</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="projects.html"><i class="fas fa-code-branch"></i> Projects</a>
+        <a href="about.html"><i class="fas fa-user"></i> About</a>
+        <a href="connect.html" class="active"><i class="fas fa-envelope"></i> Connect</a>
+      </div>
+    </nav>
+
+    <!-- Connect content -->
+    <div class="connect-section">
+      <div class="connect-card">
+        <div class="greeting">
+          <i class="fas fa-hand-peace" style="margin-right: 8px;"></i> 
+          <span class="word" id="greetingWord"></span>
+        </div>
+        
+        <!-- Animated headline with lovely words -->
+        <div class="animated-headline" id="headlineContainer"></div>
+        
+        <div class="message-text">
+          I'm always open to collaborations, conversations, and creative opportunities — especially where fashion, cloud, and AI intersect.
+        </div>
+
+        <!-- LinkedIn only -->
+        <a href="https://www.linkedin.com/in/aneefat-balogun-b995b2249?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="linkedin-btn">
+          <i class="fab fa-linkedin"></i> Connect on LinkedIn
+        </a>
+
+        <div class="connect-note">
+          <i class="fas fa-star" style="color: var(--ultraviolet); margin: 0 6px;"></i>
+          The best place to reach me is LinkedIn — I respond within 24h.
+          <i class="fas fa-star" style="color: var(--ultraviolet); margin: 0 6px;"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div>© 2026 Aneefat Kufre Balogun — lemon chiffon & ultraviolet</div>
+      <div class="social-links">
+        <a href="https://github.com/Anny030" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/aneefat-balogun-b995b2249?utm_source=share_via&utm_content=profile&utm_medium=member_android" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://x.com/annykufre" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      // Lovely words for the headline
+      const headlineText = "Let's create something extraordinary together.";
+
+      const container = document.getElementById('headlineContainer');
+      
+      function createAnimatedLetters(text) {
+        const words = text.split(/(\s+)/).filter(Boolean);
+        let globalIndex = 0;
+        let html = '';
+        
+        words.forEach(token => {
+          if (token.trim() === '') {
+            html += token;
+            globalIndex += token.length;
+          } else {
+            let wordHtml = '';
+            const chars = token.split('');
+            chars.forEach(char => {
+              wordHtml += `<span class="letter" style="--i: ${globalIndex};">${char}</span>`;
+              globalIndex++;
+            });
+            html += `<span class="word">${wordHtml}</span>`;
+          }
+        });
+        return html;
+      }
+
+      container.innerHTML = createAnimatedLetters(headlineText);
+
+      // Also animate the greeting word "hello" with letters? just simple
+      const greetingWord = "hello";
+      const greetSpan = document.getElementById('greetingWord');
+      let greetHtml = '';
+      greetingWord.split('').forEach((char, idx) => {
+        greetHtml += `<span class="letter" style="--i: ${idx};">${char}</span>`;
+      });
+      greetSpan.innerHTML = greetHtml;
+
+      // Set GitHub and LinkedIn footer links
+      const GITHUB_USER = 'Anny030';
+      const LINKEDIN_URL = 'https://www.linkedin.com/in/aneefat-balogun-b995b2249?utm_source=share_via&utm_content=profile&utm_medium=member_android';
+      
+      document.querySelectorAll('.social-links a[aria-label="GitHub"]').forEach(a => a.href = `https://github.com/${GITHUB_USER}`);
+      document.querySelectorAll('.social-links a[aria-label="LinkedIn"]').forEach(a => a.href = LINKEDIN_URL);
+      
+      // The main button already has the link.
+    })();
+  </script>
+</body>
+</html>
